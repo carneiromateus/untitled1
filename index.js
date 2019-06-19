@@ -35,7 +35,7 @@ app.use(bodyParser.json())
 
 // app.use(bodyParser.fi)
 app.post('/encrypt', function (req, res) {
-    console.log(req.data);
+    console.log(req);
     encrypt.instance( {file: req.body, password: 'password'} );
     res.send('qlqr coisa')
 })
