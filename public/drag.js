@@ -2,20 +2,23 @@ let form;
 $('#btnEncrypt').hide();
 
 $('#file').change(function (event) {
-    console.log('Uploadou mané!!',event);
-
+    console.log('Uploadou mané!!',form);
     form = new FormData();
-    form.append('fileUpload', event.target.files[0]); // para apenas 1 arquivo
+    form.append('file', event.target.files[0]);
 
+    for (let key of form.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }
     $('#btnEncrypt').show();
     let name = event.target.files[0].name; // para capturar o nome do arquivo com sua extenção
+    console.log('Uploadou mané!!',form);
 
     $('#filename').text(name);
 });
 
 
 $('#btnEncrypt').click(function () {
-    console.log('enviou mané!!');
+    console.log('enviou mané!!',form);
 
     $.ajax({
         url: 'localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
@@ -38,7 +41,7 @@ $('#btnDecrypt').click(function () {
 
     $.ajax({
         url: 'localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
-        data: form,
+        data: file,
         processData: false,
         contentType: false,
         type: 'POST',
