@@ -5,13 +5,7 @@ const encrypt = require('./encrypt');
 const decrypt = require('./decrypt');
 // const hashReq = /
 // pull the mode, file and password from the command arguments.
-const [ mode, file, password ] = process.argv.slice(2);
-if (mode === 'encrypt') {
-    encrypt.instance({ file, password });
-}
-if (mode === 'decrypt') {
-    decrypt.instance({ file, password });
-}
+
 
 //
 let app = express();
@@ -33,17 +27,17 @@ app.use(function (req, res, next) {
 })
 app.use(bodyParser.json())
 // app.use(bodyParser({ uploadDir: path.join(__dirname, 'files'), keepExtensions: true }));
-
+app.post('/decrypt',upload.single('file'), function (req, res) {
+    decrypt.instance( {file: req.file.path, password: 'password'} );
+    res.send({fileName: req.file.filename})
+})
 // app.use(bodyParser.fi)
 app.post('/encrypt',upload.single('file'), function (req, res) {
     let hash = require('./getHash').instance(req.file.filename);
     encrypt.instance( {file: req.file.path, password: 'password'} );
     res.send({hash: hash, fileName: req.file.filename})
 })
-app.post('/decrypt',upload.single('file'), function (req, res) {
-    decrypt.instance( {file: req.file.path, password: 'password'} );
-    res.send({fileName: req.file.filename})
-})
+
 
 app.post('/download', function(req, res, next){
     res.download("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.fileName+'.enc')
