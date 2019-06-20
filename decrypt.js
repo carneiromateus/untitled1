@@ -28,3 +28,4 @@ function decrypt({ file, password }) {
             .pipe(writeStream);
     });
 }
+exports.instance = decrypt
