@@ -34,9 +34,15 @@ app.use(function (req, res, next) {
 // app.use(bodyParser({ uploadDir: path.join(__dirname, 'files'), keepExtensions: true }));
 
 // app.use(bodyParser.fi)
+<<<<<<< HEAD
 app.post('/encrypt',upload.single('file'), function (req, res) {
     console.log(req.file);
     encrypt.instance( {file: req.file, password: 'password'} );
+=======
+app.post('/encrypt', function (req, res) {
+    console.log(req);
+    encrypt.instance( {file: req.body, password: 'password'} );
+>>>>>>> 653e02826355d8a46c2c19f4b2088450f37d95b5
     res.send('qlqr coisa')
 })
 
