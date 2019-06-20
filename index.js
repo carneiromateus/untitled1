@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 })
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
 // app.use(bodyParser({ uploadDir: path.join(__dirname, 'files'), keepExtensions: true }));
 
 // app.use(bodyParser.fi)
@@ -45,7 +45,8 @@ app.post('/encrypt',upload.single('file'), function (req, res) {
 })
 
 app.post('/download', function(req, res, next){
-    res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.filename+'enc')
+    console.log(req.file)
+    res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.fileName+'.enc')
 });
 
 
