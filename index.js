@@ -41,9 +41,8 @@ app.post('/encrypt',upload.single('file'), function (req, res) {
     res.send({hash: hash, fileName: req.file.filename})
 })
 app.post('/decrypt',upload.single('file'), function (req, res) {
-    let hash = require('./getHash').instance(req.file.filename);
     decrypt.instance( {file: req.file.path, password: 'password'} );
-    res.send({hash: hash, fileName: req.file.filename})
+    res.send({fileName: req.file.filename})
 })
 
 app.post('/download', function(req, res, next){
