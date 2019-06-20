@@ -24,15 +24,29 @@ $('#decrypt').change(function (event) {
 
 });
 
-function download(data,name){
-    var a = document.createElement('a');
-    var url = window.URL.createObjectURL(data);
-    a.href = url;
-    a.download = name;
-    document.body.append(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+function download(name){
+    $.ajax({
+        url: 'http://localhost:4200/download', // Url do lado server que vai receber o arquivo
+        data: {fileName: name},
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'GET',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+        success: function (data) {
+            var a = document.createElement('a');
+            var url = window.URL.createObjectURL(data);
+            a.href = url;
+            a.download = name;
+            document.body.append(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+    });
+
 }
 $('#btnEncrypt').click(function () {
     $.ajax({
@@ -48,7 +62,7 @@ $('#btnEncrypt').click(function () {
         success: function (data) {
             console.log('acertou Mizeria',data);
             $('hashencrypt').text('HASH: ' + data.hash);
-            //download(data.file,'encrypted');
+            download(data.fileName);
         }
     });
 });
