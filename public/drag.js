@@ -22,13 +22,9 @@ $('#btnEncrypt').click(function () {
 
     $.ajax({
         url: 'http://localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
-        data: form,
+        body: form,
         processData: false,
         contentType: false,
-        headers:{
-            "Access-Control-Allow-Origin": '*',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-        },
         type: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',

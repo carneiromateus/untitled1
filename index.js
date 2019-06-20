@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const upload = require('multer')({dest:'./'});
 const encrypt = require('./encrypt');
 const decrypt = require('./decrypt');
 // pull the mode, file and password from the command arguments.
@@ -30,13 +30,13 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 })
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 // app.use(bodyParser({ uploadDir: path.join(__dirname, 'files'), keepExtensions: true }));
 
 // app.use(bodyParser.fi)
-app.post('/encrypt', function (req, res) {
-    console.log(req.data);
-    encrypt.instance( {file: req.body, password: 'password'} );
+app.post('/encrypt',upload.single('file'), function (req, res) {
+    console.log(req.file);
+    encrypt.instance( {file: req.file, password: 'password'} );
     res.send('qlqr coisa')
 })
 
