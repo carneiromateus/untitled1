@@ -2,12 +2,12 @@ const crypto = require('crypto')
     , fs = require('fs');
 
 function getHash(filename){
-
+console.log
     let algorithm = 'sha256';
     let shasum = crypto.createHash(algorithm);
 
     // Updating shasum with file content
-    let fullfile = __dirname + filename;
+    let fullfile =  filename;
     let s = fs.ReadStream(fullfile);
     s.on('data', function(data) {
         shasum.update(data);
