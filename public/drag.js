@@ -25,30 +25,25 @@ $('#decrypt').change(function (event) {
 });
 
 function download(name){
-    let test = new FormData();
-    test.append('fileName', name);
+    let test = {
+        fileName: name
+    }
 
     $.ajax({
-        url: 'http://localhost:4200/download', // Url do lado server que vai receber o arquivo
+        url: 'http://localhost:4200/download?fileName='+name, // Url do lado server que vai receber o arquivo
         cache: false,
-        contentType: 'application/json',
-        data: {
-            fileName: name
-        },
-        dataType: 'json',
+        responseType : 'blob',
+
         type: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
         },
         success: function (data) {
-            var a = document.createElement('a');
-            var url = window.URL.createObjectURL(data);
-            a.href = url;
-            a.download = name;
-            document.body.append(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
+            console.log(data);
+            var filename = 'encrypted'
+            var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, filename+".txt");
+
         }
     });
 
