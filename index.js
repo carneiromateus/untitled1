@@ -36,7 +36,6 @@ app.use(function (req, res, next) {
 
 // app.use(bodyParser.fi)
 app.post('/encrypt',upload.single('file'), function (req, res) {
-    console.log(req.file);
     let hash = require('./getHash').instance(req.file.filename);
     encrypt.instance( {file: req.file.path, password: 'password'} );
     res.send({hash: hash, fileName: req.file.filename})
@@ -45,7 +44,8 @@ app.post('/encrypt',upload.single('file'), function (req, res) {
 })
 
 app.post('/download', function(req, res, next){
-    res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.filename+'enc')
+    console.log(req.fileName,req.body);
+    //res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.fileName+'enc')
 });
 
 

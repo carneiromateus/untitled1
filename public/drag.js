@@ -25,13 +25,18 @@ $('#decrypt').change(function (event) {
 });
 
 function download(name){
+    let test = new FormData();
+    test.append('fileName', name);
+
     $.ajax({
         url: 'http://localhost:4200/download', // Url do lado server que vai receber o arquivo
-        data: {fileName: name},
         cache: false,
-        contentType: false,
-        processData: false,
-        type: 'GET',
+        contentType: 'application/json',
+        data: {
+            fileName: name
+        },
+        dataType: 'json',
+        type: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
         },
