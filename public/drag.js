@@ -39,8 +39,8 @@ function download(name){
         success: function (data) {
             console.log(data);
             var filename = 'encrypted'
-            var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, filename+".txt");
+            var blob = new Blob([data]);
+            saveAs(blob, filename+".enc");
 
         }
     });

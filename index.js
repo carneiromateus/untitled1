@@ -29,7 +29,7 @@ app.use(bodyParser.json())
 // app.use(bodyParser({ uploadDir: path.join(__dirname, 'files'), keepExtensions: true }));
 app.post('/decrypt',upload.single('file'), function (req, res) {
     decrypt.instance( {file: req.file.path, password: 'password'} );
-    res.send({fileName: req.file.filename})
+    res.send({fileName: req.file.filename+'1oo'})
 })
 // app.use(bodyParser.fi)
 app.post('/encrypt',upload.single('file'), function (req, res) {
@@ -40,7 +40,7 @@ app.post('/encrypt',upload.single('file'), function (req, res) {
 
 
 app.post('/download', function(req, res, next){
-    res.download("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.fileName+'.enc')
+    res.download("C:/Users/mateu/WebstormProjects/untitled1/"+req.query.fileName+'.enc')
 });
 
 
