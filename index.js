@@ -17,7 +17,6 @@ if (mode === 'decrypt') {
 let app = express();
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', '*');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -37,20 +36,16 @@ app.use(function (req, res, next) {
 
 // app.use(bodyParser.fi)
 app.post('/encrypt',upload.single('file'), function (req, res) {
-    // console.log(req.file);
+    console.log(req.file);
     let hash = require('./getHash').instance(req.file.filename);
     encrypt.instance( {file: req.file.path, password: 'password'} );
-    // var readStream = require('fs').createReadStream(req.file.filename+'.enc');
-    // readStream.pipe(res);
-    // res.writeHead(200, {
-    //     'Content-Type': '*',
-    //     'Content-Length': 1
-    // });
-    res.sendFile(require('path').join(__dirname+'/' + req.file.filename+'.enc'))
+    res.send({hash: hash, fileName: req.file.filename})
+    // res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.file.filename+'enc')
+    // var data =require('fs').readFileSync("C:/Users/mateu/WebstormProjects/untitled1/"+req.file.filename+'.enc');res.contentType("aplication"); res.send(data)
 })
 
-app.post('/deencrypt', function(req, res, next){
-
+app.post('/download', function(req, res, next){
+    res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.filename+'enc')
 });
 
 
