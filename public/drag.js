@@ -19,11 +19,6 @@ $('#file').change(function (event) {
 $('#btnEncrypt').click(function () {
     $.ajax({
         url: 'http://localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
-<<<<<<< HEAD
-        body: form,
-        processData: false,
-        contentType: false,
-=======
         data: form,
         cache: false,
         contentType: false,
@@ -32,7 +27,6 @@ $('#btnEncrypt').click(function () {
             "Access-Control-Allow-Origin": '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
         },
->>>>>>> 653e02826355d8a46c2c19f4b2088450f37d95b5
         type: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
