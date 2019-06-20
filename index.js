@@ -36,7 +36,6 @@ app.use(bodyParser.json())
 
 // app.use(bodyParser.fi)
 app.post('/encrypt',upload.single('file'), function (req, res) {
-    console.log(req.file);
     let hash = require('./getHash').instance(req.file.filename);
     encrypt.instance( {file: req.file.path, password: 'password'} );
     res.send({hash: hash, fileName: req.file.filename})
