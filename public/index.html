@@ -11,16 +11,31 @@
 
     <div class="zone">
         <div id="dropZ">
-            <i class="fa fa-cloud-upload"></i>
-            <p id="filename"></p>
+            <p id="filename">Criptografar</p>
 
             <div class="selectFile">
 
-                <label for="file">Select file</label>
+                <label for="file">Selecione um arquivo </label>
                 <input type="file" name="file" id="file">
             </div>
             <div class="selectFile">
-                <button id="btnEncrypt"  class="btn btn-classic">Encryptar</button>
+                <button id="btnEncrypt"  class="btn btn-classic">Encrypt</button>
+            </div>
+            <p id="hashencrypt"></p>
+        </div>
+    </div>
+    <div class="zone">
+        <div id="dropD">
+            <p id="filenameD">Descriptografar</p>
+
+            <div class="selectFile">
+
+                <label for="file">Selecione um arquivo</label>
+                <input type="file" name="file" id="decrypt">
+            </div>
+            <div class="selectFile">
+                <input type="text" id="hash" name="Hash" placeholder="Hash">
+                <button id="btnDecrypt" class="btn btn-classic">Decrypt</button>
             </div>
         </div>
     </div>

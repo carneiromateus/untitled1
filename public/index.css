@@ -4,20 +4,18 @@ body {
     background: #ebeff2;
     font-family: "Exo 2";
 }
-
+p{
+    font-size:30px;
+}
 .zone {
     margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
     background: radial-gradient(ellipse at center,#EB6A5A 0,#c9402f 100%);
-    width:80%;
-    height:50%;
+    width:100%;
+    height:350px;
     border:5px dashed white;
     text-align:center;
     color: white;
-    z-index: 20;
-    transition: all 0.3s ease-out;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.05),inset 0 0 .25em 0 rgba(0,0,0,.25);
+    float: left;
 }
 i {
     text-align: center;
@@ -32,7 +30,7 @@ i {
     width: 200px;
 }
 
-label, input {
+label, input[type=file]  {
     cursor: pointer;
     display: block;
     height: 50px;
@@ -43,11 +41,11 @@ label, input {
     border-radius: 5px;
 }
 
-label {
+label{
     background: #fff;
     color:#EB6A5A;
     display: inline-block;
-    font-size: 1.2em;
+    font-size:15px;
     line-height: 50px;
     padding: 0;
     text-align: center;
@@ -60,34 +58,28 @@ label {
 input[type=file] {
     opacity: 0;
 }
+#hash{
+    float:left;
+    width: 100%;
+    height: 30px;
+    color:#EB6A5A;
+    margin-bottom:10px;
+    font-size:15px;
+}
 
-}
-.zone.in {
-    color:white;
-    border-color:white;
-    background: radial-gradient(ellipse at center,#EB6A5A 0,#c9402f 100%);
-i {
-    color:#fff;
-}
-label {
+.btn-classic{
     background: #fff;
     color:#EB6A5A;
-}
-}
-.zone.hover {
-    color:gray;
-    border-color:white;
-    background:#fff;
-    border:5px dashed gray;
-i {
-    color:#EB6A5A;
-}
-label {
-    background: #fff;
-    color:#EB6A5A;
-}
-}
-.zone.fade {
-    transition: all 0.3s ease-out;
-    opacity: 1;
+    display: inline-block;
+    font-size:15px;
+    line-height: 50px;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: 400;
+    border: 0;
+    box-shadow: 0 1px 1px grey;
+    border-radius: 6px;
+    padding: 0px 10px;
 }
