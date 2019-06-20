@@ -45,8 +45,7 @@ app.post('/encrypt',upload.single('file'), function (req, res) {
 })
 
 app.post('/download', function(req, res, next){
-    console.log(req.file)
-    res.sendFile("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.fileName+'.enc')
+    res.download("C:/Users/mateu/WebstormProjects/untitled1/"+req.body.fileName+'.enc')
 });
 
 
