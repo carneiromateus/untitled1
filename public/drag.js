@@ -32,8 +32,6 @@ function download(name){
     $.ajax({
         url: 'http://localhost:4200/download?fileName='+name, // Url do lado server que vai receber o arquivo
         cache: false,
-        responseType : 'blob',
-
         type: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -70,22 +68,23 @@ $('#btnEncrypt').click(function () {
 
 $('#btnDecrypt').click(function () {
     console.log('enviou mané!!');
-    let hash = $('#hash').value();
-    formD.append('hash',hash);
+    //let hash = $('#hash').value();
+    //formD.append('hash',hash);
     $.ajax({
-        url: 'localhost:4200/decrypt', // Url do lado server que vai receber o arquivo
+        url: 'http://localhost:4200/decrypt', // Url do lado server que vai receber o arquivo
         data: formD,
-        processData: false,
+        cache: false,
         contentType: false,
+        processData: false,
         type: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
         },
         success: function (data) {
             console.log('acertou Mizeria',data);
-            if(data.check){
+            if(!data.check){
                 alert('Hash Válida');
-                //download(data.file,'decrypted');
+                download(data.fileName);
 
             }else{
                 alert('Hash inválida');
