@@ -18,10 +18,14 @@ $('#btnEncrypt').click(function () {
     console.log('enviou mané!!');
 
     $.ajax({
-        url: 'localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
+        url: 'http://localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
         data: form,
         processData: false,
         contentType: false,
+        headers:{
+            "Access-Control-Allow-Origin": '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+        },
         type: 'POST',
         success: function (data) {
             console.log('acertou Mizeria',data);
