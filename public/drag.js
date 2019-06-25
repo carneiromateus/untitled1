@@ -1,95 +1,97 @@
 let form = new FormData();
 let formD = new FormData();
+form.append('file',null);
+formD.append('file',null);
+formD.append('hash',null);
 
 $('#btnEncrypt').hide();
 $('#btnDecrypt').hide();
 $('#hash').hide();
 
 $('#file').change(function (event) {
-    form.append('file', event.target.files[0]);
+    let name = event.target.files[0].name; // para capturar o nome do arquivo com sua extenção
+
+    form.set('file', event.target.files[0],name);
+
 
     $('#btnEncrypt').show();
-    let name = event.target.files[0].name; // para capturar o nome do arquivo com sua extenção
     $('#filename').text('Criptografar: '+name);
 
 });
 
 $('#decrypt').change(function (event) {
-    formD.append('file', event.target.files[0]);
+    let name = event.target.files[0].name; // para capturar o nome do arquivo com sua extenção
+
+    formD = new FormData();
+    formD.set('file', event.target.files[0],name);
     $('#btnDecrypt').show();
     $('#hash').show();
-
-    let name = event.target.files[0].name; // para capturar o nome do arquivo com sua extenção
     $('#filenameD').text('Descriptografar: '+name);
 
 });
 
 function download(name){
-    let test = {
-        fileName: name
-    }
+    $.fileDownload('http://localhost:4200/'+name+'.enc')
+        .done(function () { alert('File download a success!'); })
+        .fail(function () { alert('File download failed!'); });
+    //$.ajax({
+    //    url: 'http://localhost:4200/download?fileName='+name, // Url do lado server que vai receber o arquivo
+    //    cache: false,
+    //   type: 'POST',
+    //    headers: {
+    //       'Access-Control-Allow-Origin': '*',
+    //        "content-type": "application/json",
+    //    },
+    //   success: function (data) {
+    //        console.log(data);
+    //       var filename = 'encrypted';
+    //       var blob = new Blob([data]);
+    //        saveAs(blob, filename+".enc");
 
-    $.ajax({
-        url: 'http://localhost:4200/download?fileName='+name, // Url do lado server que vai receber o arquivo
-        cache: false,
-        type: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
-        success: function (data) {
-            console.log(data);
-            var filename = 'encrypted'
-            var blob = new Blob([data]);
-            saveAs(blob, filename+".enc");
-
-        }
-    });
+    //    }
+    //});
 
 }
 $('#btnEncrypt').click(function () {
-    $.ajax({
-        url: 'http://localhost:4200/encrypt', // Url do lado server que vai receber o arquivo
-        data: form,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
+    var settings = {
+        "url": "http://localhost:4200/encrypt",
+        "method": "POST",
+        "headers": {
+            "cache-control": "no-cache",
         },
-        success: function (data) {
-            console.log('acertou Mizeria',data);
-            $('hashencrypt').text('HASH: ' + data.hash);
-            download(data.fileName);
-        }
+        "processData": false,
+        "contentType": false,
+        "mimeType": "multipart/form-data",
+        "data": form
+    };
+    $.ajax(settings).done(function (response) {
+        response= JSON.parse(response);
+        $('#hashText').text('Hash: '+response.hash );
+        download(response.fileName);
     });
 });
 
 
 $('#btnDecrypt').click(function () {
     console.log('enviou mané!!');
-    //let hash = $('#hash').value();
-    //formD.append('hash',hash);
-    $.ajax({
-        url: 'http://localhost:4200/decrypt', // Url do lado server que vai receber o arquivo
-        data: formD,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
+    let hash = $('#hash').val();
+    formD.set('hash',hash);
+    var settings = {
+        "url": "http://localhost:4200/decrypt",
+        "method": "POST",
+        "headers": {
+            "cache-control": "no-cache",
         },
-        success: function (data) {
-            console.log('acertou Mizeria',data);
-            if(!data.check){
-                alert('Hash Válida');
-                download(data.fileName);
-
-            }else{
-                alert('Hash inválida');
-            }
-
-        }
+        "processData": false,
+        "contentType": false,
+        "mimeType": "multipart/form-data",
+        "data": formD
+    };
+    $.ajax(settings).done(function (response) {
+        response= JSON.parse(response);
+        download(response.fileName);
     });
+
+
+
 });
