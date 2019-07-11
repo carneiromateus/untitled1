@@ -6,12 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-"repository": "https://github.com/carneiromateus/untitled1.git",
+  "repository": "https://github.com/carneiromateus/untitled1.git",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "multer": "^1.4.1"
   }
 }
