@@ -24,5 +24,6 @@ function encrypt({ file, password }) {
         .pipe(cipher)
         .pipe(appendInitVect)
         .pipe(writeStream);
+
 }
 exports.instance = encrypt;

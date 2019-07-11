@@ -1,11 +1,12 @@
 {
   "name": "untitled1",
   "version": "1.0.0",
-  "description": "",
+  "description": "tp",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+"repository": "https://github.com/carneiromateus/untitled1.git",
   "keywords": [],
   "author": "",
   "license": "ISC",

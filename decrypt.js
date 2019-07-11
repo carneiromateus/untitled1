@@ -16,7 +16,7 @@ function decrypt({ file, password }) {
 
     // Once we’ve got the initialization vector, we can decrypt the file.
     readInitVect.on('close', () => {
-        const cipherKey = getCipherKey(password);
+        const cipherKey = getCipherKey.instance(password);
         const readStream = fs.createReadStream(file, { start: 16 });
         const decipher = crypto.createDecipheriv('aes256', cipherKey, initVect);
         const unzip = zlib.createUnzip();
@@ -28,3 +28,4 @@ function decrypt({ file, password }) {
             .pipe(writeStream);
     });
 }
+exports.instance = decrypt
